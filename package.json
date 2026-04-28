@@ -1,0 +1,41 @@
+{
+  "name": "cafe-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "prisma generate"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@types/formidable": "^3.5.1",
+    "autoprefixer": "^10.5.0",
+    "cloudinary": "^2.10.0",
+    "clsx": "latest",
+    "date-fns": "latest",
+    "formidable": "^3.5.4",
+    "next": "14.2.29",
+    "postcss": "^8.5.12",
+    "prisma": "^5.22.0",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-hot-toast": "latest",
+    "tailwind-merge": "latest",
+    "tailwindcss": "^3.4.19"
+  },
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "tsx": "latest",
+    "typescript": "latest"
+  }
+}

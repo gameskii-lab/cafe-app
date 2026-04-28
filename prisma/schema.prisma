@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  pin       String
+  name      String?
+  createdAt DateTime @default(now())
+  orders    Order[]
+}
+
+model Shift {
+  id             String   @id @default(cuid())
+  startCash      Float
+  endCash        Float?
+  status         String   @default("open")
+  openedAt       DateTime @default(now())
+  closedAt       DateTime?
+  expectedCash   Float    @default(0)
+  actualCash     Float?
+  difference     Float?
+  orders         Order[]
+}
+
+model MenuItem {
+  id          String      @id @default(cuid())
+  name        String
+  description String
+  basePrice   Float
+  category    String
+  image       String?
+  available   Boolean     @default(true)
+  options     String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  orderItems  OrderItem[]
+}
+
+model Order {
+  id             String      @id @default(cuid())
+  customerPhone  String
+  customerName   String      @default("")
+  status         String      @default("pending")
+  pickupTime     DateTime
+  total          Float
+  source         String      @default("web")
+  paymentStatus  String      @default("pending")
+  paymentMethod  String?
+  userId         String?
+  user           User?       @relation(fields: [userId], references: [id])
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  items          OrderItem[]
+  shiftId        String?
+  shift          Shift?   @relation(fields: [shiftId], references: [id])
+}
+
+model OrderItem {
+  id             String   @id @default(cuid())
+  orderId        String
+  menuItemId     String
+  quantity       Int      @default(1)
+  customizations String
+  price          Float
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItem       MenuItem @relation(fields: [menuItemId], references: [id])
+}
