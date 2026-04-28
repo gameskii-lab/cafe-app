@@ -1,19 +1,5 @@
-'use client'
-
-import { useState } from 'react'
-import CounterView from '@/components/CounterView'
-import KitchenView from '@/components/KitchenView'
+import UnifiedView from '@/components/UnifiedView'
 
 export default function StaffPage() {
-  const [role, setRole] = useState<'counter' | 'kitchen'>('counter')
-
-  return (
-    <>
-      {role === 'counter' ? (
-        <CounterView onSwitchToKitchen={() => setRole('kitchen')} />
-      ) : (
-        <KitchenView onSwitchToCounter={() => setRole('counter')} />
-      )}
-    </>
-  )
+  return <UnifiedView />
 }
